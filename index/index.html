@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kolhapur Ride</title>
+    <link rel="stylesheet" type="text/css" href="index.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="slider">
+            <div class="slides"
+                style="background-image: url('Uber\ Looks\ To\ Add\ Flights\,\ Trains\,\ Hotels\ and\ Car\ Rentals\ To\ App.jpg')">
+                <div class="content">
+                    <h2 style="font-size: 50px;">Services</h2>
+                    <button style="color: white;"><a href="/Kolhapur/Services/services.php" style="color: white; text-decoration: none;">
+                            See More</a></button>
+                </div>
+            </div>
+
+
+
+
+            <div class="slides" style="background-image: url('Royal\ Enfield.jpg')">
+                <div class="content">
+                    <h2 style="font-size: 50px;">Ride</h2>
+                    <button style="color: white;"><a href="/Kolhapur/Ride/ride.php" style="color: white; text-decoration: none;">See
+                            More</a></button>
+
+                </div>
+            </div>
+            <div class="slides" style="background-image: url('Demons😈.jpg')">
+                <div class="content">
+                    <h2 style="font-size: 50px;">Drive</h2>
+                    <button style="color: white;"><a href="/Kolhapur/Driver/test/firstpage.php"style="color: white; text-decoration: none;">See More</a></button>
+                </div>
+            </div>
+
+
+            <div class="slides" style="background-image: url('businessimgindex.jpg')">
+                <div class="content">
+                    <h2 style="font-size: 50px;">Business</h2>
+                    <button style="color: white;"><a href="/Kolhapur/Business/business.php"
+                            style="color: white; text-decoration: none;">See More</a></button>
+                </div>
+            </div>
+
+
+            <div class="slides"
+                style="background-image: url('Premium\ Vector\ _\ Stock\ market\ exchange\ technology.jpg')">
+                <div class="content">
+                    <h2 style="font-size: 50px;">Overview</h2>
+                    <button style="color: white;"><a href="/Kolhapur/Overview/overview.php"
+                            style="color: white; text-decoration: none;">See More</a></button>
+                </div>
+            </div>
+
+            <div class="slides" style="background-image: url('resources.jpg')">
+                <div class="content">
+                    <h2 style="font-size: 50px;">Resources</h2>
+                    <button style="color: white;"><a href="/Kolhapur/Resources/resources.php"
+                            style="color: white; text-decoration: none;">See More</a></button>
+                </div>
+            </div>
+
+        </div>
+        <div class="buttons">
+            <span class="prev"></span>
+            <span class="next"></span>
+        </div>
+    </div>
+
+    <script>
+        let next = document.querySelector('.next');
+        let prev = document.querySelector('.prev');
+        let slider = document.querySelector('.slider');
+
+        next.addEventListener('click', function () {
+            let slides = document.querySelectorAll('.slides')
+            slider.appendChild(slides[0]);
+        })
+
+        prev.addEventListener('click', function () {
+            let slides = document.querySelectorAll('.slides')
+            slider.prepend(slides[slides.length - 1]);
+        })
+    </script>
+
+</body>
+
+</html>
