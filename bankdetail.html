@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bank Details Form</title>
+  <style>
+    body {
+  font-family: Arial, sans-serif;
+  background: #f0f2f5;
+  display: flex;
+  justify-content: center;
+  padding-top: 50px;
+}
+
+.container {
+  background: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  width: 400px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+h2 {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+label {
+  display: block;
+  margin-top: 15px;
+  margin-bottom: 5px;
+}
+
+input {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+button {
+  margin-top: 20px;
+  width: 100%;
+  padding: 10px;
+  background: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+button:hover {
+  background: #0056b3;
+}
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Enter Bank Details</h2>
+    <form action="submit.php" method="POST" onsubmit="return validateForm()">
+      <label for="name">Account Holder Name:</label>
+      <input type="text" id="name" name="name" required>
+
+      <label for="bank">Bank Name:</label>
+      <input type="text" id="bank" name="bank" required>
+
+      <label for="account">Account Number:</label>
+      <input type="text" id="account" name="account" required>
+
+      <label for="ifsc">IFSC Code:</label>
+      <input type="text" id="ifsc" name="ifsc" required>
+
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+  <script>
+    function validateForm() {
+  const account = document.getElementById('account').value;
+  const ifsc = document.getElementById('ifsc').value;
+
+  if (!/^\d{9,18}$/.test(account)) {
+    alert('Please enter a valid account number (9-18 digits).');
+    return false;
+  }
+
+  if (!/^[A-Z]{4}0[A-Z0-9]{6}$/.test(ifsc)) {
+    alert('Please enter a valid IFSC code.');
+    return false;
+  }
+
+  return true;
+}
+
+  </script>
+</body>
+</html>

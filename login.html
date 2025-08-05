@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+   
+    
+    
+    <style>
+        body {
+            background-color: #f9f9f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .login-container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            width: 100%;
+            max-width: 400px;
+        }
+        .btn-custom {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .btn-primary-custom {
+            background-color: black;
+            color: white;
+            border: none;
+        }
+        .btn-outline-custom {
+            background-color: white;
+            border: 1px solid #dee2e6;
+            color: #495057;
+        }
+        .separator {
+            display: flex;
+            align-items: center;
+            margin: 1.5rem 0;
+            color: #6c757d;
+        }
+        .separator::before, .separator::after {
+            content: "";
+            flex: 1;
+            border-bottom: 1px solid #dee2e6;
+        }
+        .separator:not(:empty)::before {
+            margin-right: 1rem;
+        }
+        .separator:not(:empty)::after {
+            margin-left: 1rem;
+        }
+        .form-control {
+            padding: 12px;
+            margin-bottom: 1rem;
+        }
+        .small-text {
+            font-size: 0.75rem;
+            color: #6c757d;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="login-container">
+            <h3 class="text-center mb-4">What's your phone number or email?</h3>
+            
+            <form id="loginForm">
+                <div class="mb-3">
+                    <input type="text" class="form-control" id="emailOrPhone" placeholder="Enter phone number or email" required>
+                </div>
+                <button type="submit" class="btn btn-primary-custom btn-custom"><a href="index.html">continue</a></button>
+            </form>
+            
+            <div class="separator">or</div>
+            <button class="btn btn-outline-custom btn-custom" id="googleBtn" onclick="window.location.href='https://accounts.google.com/'">
+                <i class="fab fa-google"></i> Continue with Google
+            </button>
+            <div class="ae ak"></div>
+            
+            <button class="btn btn-outline-custom btn-custom" id="appleBtn" onclick="window.location.href='https://appleid.apple.com/'">
+                <i class="fab fa-apple"></i> Continue with Apple
+            </button>
+            
+            <p class="small-text text-center">
+                By proceeding, you consent to receiving calls, WhatsApp or SMS/RCS messages, 
+                including by automated means, from Uber and its affiliates to the number provided.
+            </p>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Form submission
+            const loginForm = document.getElementById('loginForm');
+            if (loginForm) {
+                loginForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const emailOrPhone = document.getElementById('emailOrPhone').value;
+                    console.log('Submitted:', emailOrPhone);
+                    // Here you would typically send this to your backend
+                    alert('Login attempt with: ' + emailOrPhone);
+                });
+            }
+            
+            // Google button click
+            const googleBtn = document.getElementById('googleBtn');
+            if (googleBtn) {
+                googleBtn.addEventListener('click', function() {
+                    console.log('Google login clicked');
+                    // Implement Google OAuth here
+                    alert('Google login clicked');
+                });
+            }
+            
+            // Apple button click
+            const appleBtn = document.getElementById('appleBtn');
+            if (appleBtn) {
+                appleBtn.addEventListener('click', function() {
+                    console.log('Apple login clicked');
+                    // Implement Apple OAuth here
+                    alert('Apple login clicked');
+                });
+            }
+            
+            // QR button click
+            const qrBtn = document.getElementById('qrBtn');
+            if (qrBtn) {
+                qrBtn.addEventListener('click', function() {
+                    console.log('QR login clicked');
+                    // Implement QR code login here
+                    alert('QR code login clicked');
+                });
+            }
+        });
+        chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+    if (request.action === "someAction") {
+        sendResponse({ success: true }); // Make sure a response is sent
+    }
+    return true; // Keeps the message channel open for async responses
+});
+
+    </script>
+</body>
+</html>>
