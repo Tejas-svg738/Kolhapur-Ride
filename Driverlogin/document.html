@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Driver Info with Documents</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+    }
+
+
+    /* Document Section */
+    #documents {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 20px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    #documents h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .doc-btn {
+      padding: 10px 20px;
+      background-color: #000;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .doc-btn:hover {
+      background-color: #333;
+    }
+
+    #doc-display {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    #doc-image {
+      display: none;
+      max-width: 100%;
+      max-height: 400px;
+      border: 2px solid #000;
+      border-radius: 10px;
+    }
+
+  </style>
+</head>
+<body>
+  <!-- Document Section -->
+  <div id="documents">
+    <h2>My Documents</h2>
+    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin-bottom: 20px;">
+      <button class="doc-btn" data-img="aadhaar.jpg">Aadhaar Card</button>
+      <button class="doc-btn" data-img="pan.jpg">PAN Card</button>
+      <button class="doc-btn" data-img="licence.jpg">Driving Licence</button>
+      <button class="doc-btn" data-img="rcbook.jpg">RC Book</button>
+      <button class="doc-btn" data-img="insurance.jpg">Vehicle Insurance</button>
+    </div>
+    <div id="doc-display">
+      <img id="doc-image" src="" alt="Document Image" />
+    </div>
+  </div>
+<!-- JS for Document Display -->
+<script>
+    const buttons = document.querySelectorAll('.doc-btn');
+    const image = document.getElementById('doc-image');
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const imgSrc = 'uploads/' + btn.dataset.img;
+        image.src = imgSrc;
+        image.style.display = 'block';
+      });
+    });
+  </script>
+
+
+</body>
+</html>

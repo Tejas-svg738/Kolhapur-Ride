@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Payment</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+
+        #qrcode {
+            margin-top: 20px;
+        }
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>QR Code Payment</h1>
+    <div class="container">
+        <p>Please scan the QR code to make the payment.</p>
+        <div id="qrcode"></div>
+        <form id="paymentForm">
+            <input type="hidden" id="rcNumberField" name="rcNumber" />
+            <!-- Additional payment form fields can go here -->
+            <button type="submit">Confirm Payment</button>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.4.4/build/qrcode.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Get RC number from URL parameters
+            const params = new URLSearchParams(window.location.search);
+            const rcNumber = params.get("rc");
+
+            // Ensure RC number is available before generating QR code
+            if (rcNumber) {
+                // Create QR code with the RC number data
+                const qrData = `Payment for vehicle RC: ${rcNumber}`;
+                QRCode.toCanvas(document.getElementById("qrcode"), qrData, function (error) {
+                    if (error) {
+                        console.error("QR Code generation failed:", error);
+                    }
+                });
+
+                // Inject RC number into the form input field
+                document.getElementById('rcNumberField').value = rcNumber;
+            } else {
+                alert("Error: RC number not found in URL.");
+            }
+        });
+    </script>
+</body>
+</html>
