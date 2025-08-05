@@ -1,0 +1,57 @@
+<?php
+// Database connection
+$servername = "localhost";
+$username = "root";
+$password = "root";
+$dbname = "contact_form";
+
+// Email configuration
+$admin_email = "your-email@example.com"; // Replace with your email
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    // Retrieve form data
+    $full_name = $_POST['full_name'];
+    $email = $_POST['email'];
+    $phone_number = $_POST['phone_number'];
+    $course = $_POST['course'];
+    $message = $_POST['message'];
+
+    // Database connection
+    $conn = new mysqli($servername, $username, $password, $dbname);
+
+    // Check connection
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    // Insert data into the database
+    $sql = "INSERT INTO submissions (full_name, email, phone_number, course, message) 
+            VALUES (?, ?, ?, ?, ?)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("sssss", $full_name, $email, $phone_number, $course, $message);
+
+    if ($stmt->execute()) {
+        // Send email
+        $subject = "New Contact Form Submission";
+        $email_message = "You have received a new message:\n\n";
+        $email_message .= "Name: $full_name\n";
+        $email_message .= "Email: $email\n";
+        $email_message .= "Phone: $phone_number\n";
+        $email_message .= "Course: $course\n";
+        $email_message .= "Message: $message\n";
+
+        if (mail($admin_email, $subject, $email_message)) {
+            echo "success";
+        } else {
+            echo "email_error";
+        }
+    } else {
+        echo "db_error";
+    }
+
+    $stmt->close();
+    $conn->close();
+} else {
+    echo "invalid_request";
+}
+?>
