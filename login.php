@@ -1,39 +1,46 @@
 <?php
 session_start();
-$host = "localhost";
-$username = "root";
-$password = "";
-$dbname = "qweez";
+include 'db.php'; // Ensure your db.php connects to the database
 
-$conn = new mysqli($host, $username, $password, $dbname);
-if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $email = $_POST['email'];
+    $password = $_POST['password'];
 
-if (isset($_GET['userid']) && isset($_GET['password'])) {
-    $username = $_GET['userid'];
-    $password_plain = $_GET['password'];
-
-    $stmt = $conn->prepare("SELECT password FROM drivedatabase WHERE username = ?");
-    $stmt->bind_param("s", $username);
+    // Prepare and execute the statement
+    $stmt = $conn->prepare("SELECT userid, name, mobile, password, is_verified FROM users WHERE email = ?");
+    if ($stmt === false) {
+        // Handle prepare error
+        echo "Database error: Unable to prepare statement.";
+        exit;
+    }
+    $stmt->bind_param("s", $email);
     $stmt->execute();
-    $stmt->bind_result($hashed_password);
-    
-    if ($stmt->fetch()) {
-        if (password_verify($password_plain, $hashed_password)) {
-            $_SESSION['username'] = $username;
+    $result = $stmt->get_result();
 
-            // तुम्ही user चं नाव पण सेट करू शकता - Example:
-            // $_SESSION['name'] = $name;
+    if ($result->num_rows == 1) {
+        $user = $result->fetch_assoc();
 
-            echo "<script>alert('Login successful!'); window.location.href='dashboarddriver.php';</script>";
+        if ($user['is_verified'] == 0) {
+            echo "Please verify your email first.";
+        } elseif (password_verify($password, $user['password'])) {
+            // Success: Store user info in session
+            $_SESSION['userid'] = $user['userid'];
+            $_SESSION['name'] = $user['name'];
+            $_SESSION['mobile'] = $user['mobile'];
+
+            // Redirect to dashboard on successful login
+            header("Location: /Kolhapur/Ride/ride.php");
             exit;
         } else {
-            echo "<script>alert('Invalid credentials.'); window.location.href='loginform.php';</script>";
+            // Echo the message for JavaScript to pick up
+            echo "Incorrect password.";
         }
     } else {
-        echo "<script>alert('User not found.'); window.location.href='loginform.php';</script>";
+        // Echo the message for JavaScript to pick up
+        echo "User not found.";
     }
+
     $stmt->close();
-} else {
-    echo "<script>alert('Missing credentials.'); window.location.href='loginform.php';</script>";
+    $conn->close(); // Close the database connection
 }
 ?>
