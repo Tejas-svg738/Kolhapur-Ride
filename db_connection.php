@@ -1,10 +1,11 @@
 <?php
 $servername = "localhost";
 $username = "root";
-$password = ""; // XAMPP मध्ये default password रिकामं असतं
-$dbname = "qweez"; // ⛔ इथे तुमचं खरं DB नाव टाका (उदा: drivedatabase)
+$password = "";
+$dbname = "qweez"; // make sure this is your correct DB name
+$port="3306";
 
-$conn = new mysqli($servername, $username, $password, $dbname);
+$conn = new mysqli($servername, $username, $password, $dbname,$port);
 
 // Check connection
 if ($conn->connect_error) {
